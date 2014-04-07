@@ -46,6 +46,10 @@
                   <linkName>/opt/${project.artifactId}/${project.artifactId}.war</linkName>
                   <linkTarget>/opt/${project.artifactId}/${project.build.finalName}.war</linkTarget>
                   <symlink>true</symlink>
+                  <mapper>
+                    <type>perm</type>
+                    <user>rob</user>
+                  </mapper>
                 </data>
                 
                 <!-- Multiple files example -->
@@ -62,17 +66,16 @@
                     <user>rob</user>
                   </mapper>
                 </data>
-
+                
                 <data>
                   <type>files</type>
                   <paths>
-                    <path>src/deploy/local-run.sh</path>
+                    <path>src/deploy/${project.artifactId}</path>
                   </paths>
-                  <dst>/opt/${project.artifactId}</dst>
+                  <dst>/etc/init.d</dst>
                   <mapper>
                     <type>perm</type>
                     <filemode>754</filemode>
-                    <user>rob</user>
                   </mapper>
                 </data>
                 
