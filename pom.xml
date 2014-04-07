@@ -11,12 +11,76 @@
 
   <groupId>example</groupId>
   <artifactId>example-runnable-war</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.2-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>example-runnable-war</name>
   <description>Example of using Jetty Runnable war overlay</description>
+  
+ <build>
+    <plugins>
+      <plugin>
+        <artifactId>jdeb</artifactId>
+        <groupId>org.vafer</groupId>
+        <version>1.1.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jdeb</goal>
+            </goals>
+            <configuration>
+              <dataSet>
+                <data>
+                  <src>${project.build.directory}/${project.build.finalName}.war</src>
+                  <type>file</type>
+                  <mapper>
+                    <type>perm</type>
+                    <prefix>/opt/${project.artifactId}</prefix>
+                    <user>rob</user>
+                  </mapper>
+                </data>
+                
+                <!-- Symbolic link example -->
+                <data>
+                  <type>link</type>
+                  <linkName>/opt/${project.artifactId}/${project.artifactId}.war</linkName>
+                  <linkTarget>/opt/${project.artifactId}/${project.build.finalName}.war</linkTarget>
+                  <symlink>true</symlink>
+                </data>
+                
+                <!-- Multiple files example -->
+                <data>
+                  <type>files</type>
+                  <paths>
+                    <path>src/deploy/myapp.properties</path>
+                    <path>src/deploy/logback.xml</path>
+                  </paths>
+                  <dst>/opt/${project.artifactId}</dst>
+                  <mapper>
+                    <type>perm</type>
+                    <user>rob</user>
+                  </mapper>
+                </data>
 
-
-
+                <data>
+                  <type>files</type>
+                  <paths>
+                    <path>src/deploy/local-run.sh</path>
+                  </paths>
+                  <dst>/opt/${project.artifactId}</dst>
+                  <mapper>
+                    <type>perm</type>
+                    <filemode>754</filemode>
+                    <user>rob</user>
+                  </mapper>
+                </data>
+                
+              </dataSet>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

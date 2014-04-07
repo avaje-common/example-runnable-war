@@ -1,0 +1,9 @@
+Package: [[name]]
+Version: [[version]]
+Section: misc
+Priority: optional
+Architecture: all
+Depends:
+Maintainer: Rob <robin.bygrave@gmail.com>
+Description: example jetty runnable war
+Distribution: development
