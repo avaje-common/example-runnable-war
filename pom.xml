@@ -56,6 +56,7 @@
                     <path>src/deploy/logback.xml</path>
                   </paths>
                   <dst>/opt/${project.artifactId}</dst>
+                  <conffile>true</conffile>
                   <mapper>
                     <type>perm</type>
                     <user>rob</user>
